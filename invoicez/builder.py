@@ -66,8 +66,9 @@ class Builder:
             self._paths.build_dir / self._target.name / self._target.template_name
         )
         target_build_dir.mkdir(parents=True, exist_ok=True)
-        for item in self._paths.assets_dir.iterdir():
-            self._setup_link(target_build_dir / item.name, item)
+        if self._paths.assets_dir.is_dir():
+            for item in self._paths.assets_dir.iterdir():
+                self._setup_link(target_build_dir / item.name, item)
         return target_build_dir
 
     def _write_latex(self, output_path: Path) -> None:
