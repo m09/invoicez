@@ -1,10 +1,12 @@
 from functools import partial, wraps
 from importlib import import_module, invalidate_caches as importlib_invalidate_caches
 from logging import INFO
+from pathlib import Path
 from pkgutil import walk_packages
-from typing import Any, Callable
+from typing import Any, Callable, List
 
 from click import (
+    argument,
     ClickException,
     group,
     option as click_option,
@@ -13,6 +15,7 @@ from click import (
 from coloredlogs import install as coloredlogs_install
 
 from invoicez.exceptions import InvoicezException
+from invoicez.paths import Paths
 
 
 option = partial(click_option, show_default=True)
@@ -22,6 +25,25 @@ dir_path_option = option(
     type=ClickPath(exists=True, readable=True, file_okay=False),
     default=".",
     help="Path of the deck.",
+)
+
+
+def _autocomplete_path(ctx: Any, args: List[str], incomplete: str) -> List[str]:
+    try:
+        paths = Paths(Path("."))
+        return [
+            str(t.relative_to(paths.working_dir))
+            for t in paths.working_dir.glob("*.yml")
+            if t.name != "company-config.yml"
+        ]
+    except Exception:
+        return []
+
+
+path_argument = argument(
+    "path",
+    type=ClickPath(exists=True, dir_okay=False, readable=True),
+    autocompletion=_autocomplete_path,  # type: ignore
 )
 
 

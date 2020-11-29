@@ -14,9 +14,8 @@ class Target:
     def __init__(self, path: Path, template_name: str, paths: Paths):
         if not path.is_file():
             raise InvoicezException(f"Could not find the file to compile {path}.")
-        self.data = dict(invoice_number=path.with_suffix("").name)
         with path.open(encoding="utf8") as fh:
-            self.data.update(yaml_safe_load(fh))
+            self.data = yaml_safe_load(fh)
         self.name = path.with_suffix("").name
         self.path = path
         self.template_name = template_name
