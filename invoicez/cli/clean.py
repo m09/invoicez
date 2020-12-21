@@ -9,7 +9,7 @@ from invoicez.paths import Paths
 @command
 @dir_path_option
 def clean(dir_path: str) -> None:
-    """Wipe the build directory."""
+    """Wipe out the build directory."""
     logger = getLogger(__name__)
     paths = Paths(Path(dir_path))
     if not paths.build_dir.exists():

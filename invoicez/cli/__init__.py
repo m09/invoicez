@@ -24,7 +24,7 @@ dir_path_option = option(
     "--dir-path",
     type=ClickPath(exists=True, readable=True, file_okay=False),
     default=".",
-    help="Path of the deck.",
+    help="Path of the working directory.",
 )
 
 

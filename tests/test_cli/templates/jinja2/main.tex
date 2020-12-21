@@ -20,19 +20,19 @@
 \setkomavar{date}{}
 
 \firsthead{%
-  \V{user_name}\\%
-  \V{user_address}\\%
-  \V{user_phone}\\%
-  \V{user_email}\\%
-  APE~\V{user_ape}\\%
-  SIRET~\V{user_siret}%
+  \V{user["name"]}\\%
+  \V{user["address"]}\\%
+  \V{user["phone"]}\\%
+  \V{user["email"]}\\%
+  APE~\V{user["ape"]}\\%
+  SIRET~\V{user["siret"]}%
 }
 
 \firstfoot{\centering\small{%
-    \V{user_name}\\[0.5em]%
-    \V{user_phone}%
+    \V{user["name"]}\\[0.5em]%
+    \V{user["phone"]}%
     \hspace{1cm}%
-    \texttt{\V{user_email}}%
+    \texttt{\V{user["email"]}}%
   }\\[0.5em]%
   \scriptsize{%
     Dispensé d'immatriculation au registre du commerce et des sociétés
@@ -43,14 +43,14 @@
 
 \begin{document}
 \begin{letter}{%
-    \V{company_name}\\%
-    \V{company_address.strip().replace("\n", "\\\\")}\\%
-    SIREN~\V{company_siren}%
+    \V{company["name"]}\\%
+    \V{company["address"].strip().replace("\n", "\\\\")}\\%
+    SIREN~\V{company["siren"]}%
   }
   %% if cancels is defined 
-  \opening{\textbf{Facture d'avoir n°\V{invoice_number} émise le \V{date} à \V{user_place} pour remboursement de la facture n°\V{cancels}}}
+  \opening{\textbf{Facture d'avoir n°\V{invoice_number} émise le \V{date} à \V{user["place"]} pour remboursement de la facture n°\V{cancels}}}
   %% else
-  \opening{\textbf{Facture n°\V{invoice_number} émise le \V{date} à \V{user_place}}}
+  \opening{\textbf{Facture n°\V{invoice_number} émise le \V{date} à \V{user["place"]}}}
   %%endif
 
   \V{description}
@@ -74,7 +74,7 @@
 
   %% if cancels is defined 
   %% else
-  Date d'échéance du paiment~:~\V{limit_date}.
+  Date d'échéance du paiment~:~\V{company["maximum_days"]}.
 
   En cas de retard de paiement, seront exigibles, conformément à l’article L 441-6 du code de commerce,
   une indemnité calculée sur la base de trois fois le taux de l’intérêt légal en vigueur ainsi qu’une indemnité
@@ -83,11 +83,11 @@
   À régler par chèque ou par virement bancaire~:
 
   \begin{tabular}{ll}
-    Domiciliation & \texttt{\V{user_account_bank}}  \\
-    Titulaire     & \texttt{\V{user_account_owner}} \\
-    RIB           & \texttt{\V{user_rib}}           \\
-    IBAN          & \texttt{\V{user_iban}}          \\
-    BIC           & \texttt{\V{user_bic}}           \\
+    Domiciliation & \texttt{\V{user["account_bank"]}}  \\
+    Titulaire     & \texttt{\V{user["account_owner"]}} \\
+    RIB           & \texttt{\V{user["rib"]}}           \\
+    IBAN          & \texttt{\V{user["iban"]}}          \\
+    BIC           & \texttt{\V{user["bic"]}}           \\
   \end{tabular}
   %% endif
 

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from filecmp import cmp
 from logging import getLogger
 from multiprocessing import Pool
@@ -73,13 +74,16 @@ class Builder:
 
     def _write_latex(self, output_path: Path) -> None:
         template = self._env.get_template(str(self._target.template_path.name))
+        context = deepcopy(self._target.data)
+        for k, v in ((k, v) for k, v in self._config.items() if k != "companies"):
+            context[k] = v
+        context["company"] = {
+            **self._config["company"],
+            **self._config["companies"][self._target.data["company"]],
+        }
         try:
             with NamedTemporaryFile("w", encoding="utf8", delete=False) as fh:
-                fh.write(
-                    template.render(
-                        **self._config, **self._target.data, target=self._target
-                    )
-                )
+                fh.write(template.render(**context))
                 fh.write("\n")
             if not output_path.exists() or not cmp(fh.name, str(output_path)):
                 move(fh.name, output_path)

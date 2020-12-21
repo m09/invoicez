@@ -1,0 +1,25 @@
+font_size: 11pt
+company:
+  maximum_days: 30
+user:
+  name: John Doe
+  email: john@doe.me
+  phone: +33 6 66 66 66 66
+  place: Somewhere
+  address: |
+    221B Baker Street
+    London
+  ape: XXXXX
+  siret: XXX XXX XXX XXXXX
+  bic: XXXXXXXXXXX
+  iban: XXXX XXXX XXXX XXXX XXXX XXXX XXX
+  rib: XXXXX XXXXX XXXXXXXXXXX XX
+  account_bank: SOME BANK / SOME OFFICE
+  account_owner: JOHN DOE / 221B BAKER STREET / LONDON
+companies:
+  company:
+    name: Company
+    siren: 666 666 666
+    address: |
+      Some street
+      Some town

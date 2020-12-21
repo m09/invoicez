@@ -12,29 +12,14 @@ _logger = getLogger(__name__)
 
 
 class Paths:
-    def __init__(self, working_dir: Path, check_depth: bool = True) -> None:
+    def __init__(self, working_dir: Path) -> None:
         self.working_dir = working_dir.resolve()
         self.build_dir = self.working_dir / "build"
         self.pdf_dir = self.working_dir / "pdf"
         self.assets_dir = self.git_dir / "assets"
         self.templates_dir = self.git_dir / "templates"
-        self.yml_templates_dir = self.templates_dir / "yml"
-        self.template_company_config = self.yml_templates_dir / "company-config.yml"
-        self.template_invoice = self.yml_templates_dir / "invoice.yml"
         self.jinja2_dir = self.templates_dir / "jinja2"
-        self.global_config = self.git_dir / "global-config.yml"
-        self.company_config = (
-            self.git_dir
-            / self.working_dir.relative_to(self.git_dir).parts[0]
-            / "company-config.yml"
-        )
-
-        if check_depth and not self.working_dir.relative_to(self.git_dir).match("*"):
-            raise InvoicezException(
-                f"Not deep enough from root {self.git_dir}. "
-                "Please follow the directory hierarchy root > company and "
-                "invoke this tool from the company directory."
-            )
+        self.config = self.git_dir / "config.yml"
 
     @property
     def git_dir(self) -> Optional[Path]:
