@@ -15,6 +15,9 @@ PyYAML = "^5.3.1"
 click = "^7.1.1"
 coloredlogs = "^14.0"
 python = "^3.6"
+google-api-python-client = "^1.12.8"
+google-auth-oauthlib = "^0.4.2"
+rich = "^9.10.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

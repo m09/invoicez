@@ -19,7 +19,11 @@ class Paths:
         self.assets_dir = self.git_dir / "assets"
         self.templates_dir = self.git_dir / "templates"
         self.jinja2_dir = self.templates_dir / "jinja2"
+        self.invoicez_dir = self.git_dir / ".invoicez"
         self.config = self.git_dir / "config.yml"
+        self.gcalendar_secrets = self.invoicez_dir / "gcalendar-secrets.json"
+        self.gcalendar_selected_calendar = self.invoicez_dir / "selected-calendar.txt"
+        self.gcalendar_credentials = self.invoicez_dir / "gcalendar-credentials.pickle"
 
     @property
     def git_dir(self) -> Optional[Path]:
