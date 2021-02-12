@@ -1,12 +1,12 @@
 from pathlib import Path
 
-from invoicez.builder import Builder
-from invoicez.config import get_config
+from invoicez.building import Builder
 from invoicez.paths import Paths
+from invoicez.settings import Settings
 from invoicez.target import Target
 
 
 def run(path: Path, template: str, paths: Paths) -> None:
-    config = get_config(paths)
+    settings = Settings.load(paths)
     target = Target(path, template, paths)
-    Builder(target, config, paths)
+    Builder(target, settings, paths)

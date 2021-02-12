@@ -7,19 +7,25 @@ from git.exc import InvalidGitRepositoryError
 
 from invoicez.exceptions import InvoicezException
 
-
 _logger = getLogger(__name__)
 
 
 class Paths:
     def __init__(self, working_dir: Path) -> None:
         self.working_dir = working_dir.resolve()
-        self.build_dir = self.working_dir / "build"
-        self.pdf_dir = self.working_dir / "pdf"
-        self.assets_dir = self.git_dir / "assets"
+
+        self.pdfs_dir = self.git_dir / "pdfs"
+        self.gcal_ymls_dir = self.git_dir / "gcal-ymls"
+        self.extra_ymls_dir = self.git_dir / "extra-ymls"
         self.templates_dir = self.git_dir / "templates"
-        self.jinja2_dir = self.templates_dir / "jinja2"
         self.config = self.git_dir / "config.yml"
+
+        # Hidden stuff
+        self.invoicez_dir = self.git_dir / ".invoicez"
+        self.build_dir = self.invoicez_dir / "build"
+        self.gcalendar_secrets = self.invoicez_dir / "gcalendar-secrets.json"
+        self.gcalendar_selected_calendar = self.invoicez_dir / "selected-calendar.txt"
+        self.gcalendar_credentials = self.invoicez_dir / "gcalendar-credentials.pickle"
 
     @property
     def git_dir(self) -> Optional[Path]:

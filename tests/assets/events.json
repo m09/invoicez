@@ -1,0 +1,401 @@
+[
+  {
+    "summary": "Company_0 - Training_0 - cv - Extra_0",
+    "id": "Id_0",
+    "htmlLink": "HTMLLink_0",
+    "description": "invoice: 2021-01-001\npaid: 2021-03-01\npreparation_days: 1\nref: Ref_0\nsent: 2021-01-16\n",
+    "end": {
+      "date": "2021-01-15"
+    },
+    "start": {
+      "date": "2021-01-14"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_0 - cv - Extra_1",
+    "id": "Id_1",
+    "htmlLink": "HTMLLink_1",
+    "description": "invoice: 2020-12-002\npaid: 2021-01-29\nref: Ref_1\nsent: 2020-12-17\n",
+    "end": {
+      "date": "2020-12-17"
+    },
+    "start": {
+      "date": "2020-12-14"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_1 - cv - Extra_1",
+    "id": "Id_2",
+    "htmlLink": "HTMLLink_2",
+    "description": "invoice: 2020-11-001\npaid: 2020-12-01\nref: Ref_2\nsent: 2020-11-10\n",
+    "end": {
+      "date": "2020-11-11"
+    },
+    "start": {
+      "date": "2020-11-09"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - cv - Extra_1",
+    "id": "Id_3",
+    "htmlLink": "HTMLLink_3",
+    "description": "invoice: 2020-11-02\npaid: 2020-12-30\nref: Ref_3\nsent: 2020-11-20\n",
+    "end": {
+      "date": "2020-11-21"
+    },
+    "start": {
+      "date": "2020-11-17"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_3 - cv - Extra_1",
+    "id": "Id_4",
+    "htmlLink": "HTMLLink_4",
+    "description": "invoice: 2020-12-001\npaid: 2020-12-30\nref: Ref_4\nsent: 2020-12-02\n",
+    "end": {
+      "date": "2020-12-03"
+    },
+    "start": {
+      "date": "2020-11-30"
+    }
+  },
+  {
+    "summary": "-> Company_0 - Training_2 - cv - Extra_2",
+    "id": "Id_5",
+    "htmlLink": "HTMLLink_5",
+    "end": {
+      "dateTime": "2020-11-13T12:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    },
+    "start": {
+      "dateTime": "2020-11-13T09:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - cv - Extra_2",
+    "id": "Id_6",
+    "htmlLink": "HTMLLink_6",
+    "description": "invoice: 2020-11-005\npaid: 2020-12-30\npreparation_days: 2\nref: Ref_3\nsent: 2020-11-25\n",
+    "end": {
+      "dateTime": "2020-11-04T12:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    },
+    "start": {
+      "dateTime": "2020-11-04T09:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    }
+  },
+  {
+    "summary": "-> Company_0 - Training_2 - cv - Extra_2",
+    "id": "Id_7",
+    "htmlLink": "HTMLLink_7",
+    "end": {
+      "dateTime": "2020-11-05T12:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    },
+    "start": {
+      "dateTime": "2020-11-05T09:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - paris - Extra_2",
+    "id": "Id_8",
+    "htmlLink": "HTMLLink_8",
+    "description": "invoice: 2020-10-003\npaid: 2020-10-28\nref: Ref_5\nsent: 2020-10-07\n",
+    "end": {
+      "date": "2020-09-23"
+    },
+    "start": {
+      "date": "2020-09-21"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - paris - Extra_1",
+    "id": "Id_9",
+    "htmlLink": "HTMLLink_9",
+    "description": "invoice: 2020-02-001\npaid: 2020-02-27\nref: Ref_6\nsent: 2020-02-04\n",
+    "end": {
+      "date": "2020-01-23"
+    },
+    "start": {
+      "date": "2020-01-21"
+    }
+  },
+  {
+    "summary": "-> Company_0 - Training_0 - cv - Extra_0",
+    "id": "Id_10",
+    "htmlLink": "HTMLLink_10",
+    "end": {
+      "dateTime": "2021-01-15T12:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    },
+    "start": {
+      "dateTime": "2021-01-15T09:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_1 - cv - Extra_1",
+    "id": "Id_11",
+    "htmlLink": "HTMLLink_11",
+    "description": "invoice: 2021-03-003\npaid: 2021-04-28\nref: Ref_2\nsent: 2021-03-26\n",
+    "end": {
+      "date": "2021-03-27"
+    },
+    "start": {
+      "date": "2021-03-25"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_1 - cv - Extra_1",
+    "id": "Id_12",
+    "htmlLink": "HTMLLink_12",
+    "description": "invoice: 2021-04-001\npaid: 2021-04-28\nref: Ref_2\nsent: 2021-04-09\n",
+    "end": {
+      "date": "2021-04-10"
+    },
+    "start": {
+      "date": "2021-04-08"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - cv - Extra_3",
+    "id": "Id_13",
+    "htmlLink": "HTMLLink_13",
+    "description": "invoice: 2021-05-001\npaid: 2021-06-29\nref: Ref_3\nsent: 2021-05-21\n",
+    "end": {
+      "date": "2021-05-18"
+    },
+    "start": {
+      "date": "2021-05-17"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_4 - cv - Extra_4",
+    "id": "Id_14",
+    "htmlLink": "HTMLLink_14",
+    "description": "invoice: 2021-06-001\npaid: 2021-07-13\nref: Ref_7\nsent: 2021-06-02\n",
+    "end": {
+      "date": "2021-06-03"
+    },
+    "start": {
+      "date": "2021-05-31"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_4 - paris - Extra_5",
+    "id": "Id_15",
+    "htmlLink": "HTMLLink_15",
+    "description": "invoice: 2021-07-001\npaid: 2021-09-02\nref: Ref_8\nsent: 2021-07-19\n",
+    "end": {
+      "date": "2021-07-10"
+    },
+    "start": {
+      "date": "2021-07-07"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - cv - Extra_1",
+    "id": "Id_16",
+    "htmlLink": "HTMLLink_16",
+    "description": "invoice: 2021-07-003\npaid: 2021-09-02\nref: Ref_3\nsent: 2021-07-23\n",
+    "end": {
+      "date": "2021-07-24"
+    },
+    "start": {
+      "date": "2021-07-20"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_2 - paris - Extra_1",
+    "id": "Id_17",
+    "htmlLink": "HTMLLink_17",
+    "description": "ref: Ref_6\n",
+    "end": {
+      "date": "2021-11-06"
+    },
+    "start": {
+      "date": "2021-11-02"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_4 - la ricamarie - Extra_6",
+    "id": "Id_18",
+    "htmlLink": "HTMLLink_18",
+    "description": "ref: Ref_9\n",
+    "end": {
+      "date": "2021-10-21"
+    },
+    "start": {
+      "date": "2021-10-18"
+    }
+  },
+  {
+    "summary": "-> Company_0 - Training_2 - cv - Extra_2",
+    "id": "Id_19",
+    "htmlLink": "HTMLLink_19",
+    "description": "\"9h \\xE0 12h\"\n",
+    "end": {
+      "dateTime": "2020-11-12T12:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    },
+    "start": {
+      "dateTime": "2020-11-12T09:00:00+01:00",
+      "timeZone": "Europe/Paris"
+    }
+  },
+  {
+    "summary": "Company_2 - Training_0 - cv - Extra_1",
+    "id": "Id_20",
+    "htmlLink": "HTMLLink_20",
+    "description": "invoice: 2021-04-002\npaid: 2021-06-14\nref: Ref_10\nsent: 2021-04-22\n",
+    "end": {
+      "date": "2021-04-15"
+    },
+    "start": {
+      "date": "2021-04-12"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_0 - cv - Extra_1",
+    "id": "Id_21",
+    "htmlLink": "HTMLLink_21",
+    "description": "invoice: 2021-03-002\npaid: 2021-05-03\nref: Ref_11\nsent: 2021-03-14\n",
+    "end": {
+      "date": "2021-03-10"
+    },
+    "start": {
+      "date": "2021-03-08"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_1 - cv - Extra_1",
+    "id": "Id_22",
+    "htmlLink": "HTMLLink_22",
+    "description": "invoice: 2021-03-001\npaid: 2021-04-28\nref: Ref_12\nsent: 2021-03-05\n",
+    "end": {
+      "date": "2021-03-04"
+    },
+    "start": {
+      "date": "2021-03-01"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_1 - cv - Extra_1",
+    "id": "Id_23",
+    "htmlLink": "HTMLLink_23",
+    "description": "invoice: 2021-06-002\npaid: 2021-07-27\nref: Ref_13\nsent: 2021-06-11\n",
+    "end": {
+      "date": "2021-06-12"
+    },
+    "start": {
+      "date": "2021-06-09"
+    }
+  },
+  {
+    "summary": "Company_3 - Training_0 - saint-herblain - Extra_1",
+    "id": "Id_24",
+    "htmlLink": "HTMLLink_24",
+    "description": "invoice: 2021-06-004\npaid: 2021-08-03\nref: Ref_14\nsent: 2021-06-28\n",
+    "end": {
+      "date": "2021-06-29"
+    },
+    "start": {
+      "date": "2021-06-28"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_2 - cv - Extra_1",
+    "id": "Id_25",
+    "htmlLink": "HTMLLink_25",
+    "description": "invoice: 2021-06-003\npaid: 2021-08-03\nref: Ref_15\nsent: 2021-06-16\n",
+    "end": {
+      "date": "2021-06-17"
+    },
+    "start": {
+      "date": "2021-06-14"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_3 - cv - Extra_1",
+    "id": "Id_26",
+    "htmlLink": "HTMLLink_26",
+    "description": "invoice: 2021-09-001\nref: Ref_16\nsent: 2021-09-10\n",
+    "end": {
+      "date": "2021-09-09"
+    },
+    "start": {
+      "date": "2021-09-06"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_1 - cv - Extra_1",
+    "id": "Id_27",
+    "htmlLink": "HTMLLink_27",
+    "description": "ref: Ref_17\n",
+    "end": {
+      "date": "2021-09-30"
+    },
+    "start": {
+      "date": "2021-09-27"
+    }
+  },
+  {
+    "summary": "Company_1 - Training_1 - cv - Extra_1",
+    "id": "Id_28",
+    "htmlLink": "HTMLLink_28",
+    "end": {
+      "date": "2021-12-04"
+    },
+    "start": {
+      "date": "2021-12-01"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_3 - saint-mand\u00e9 - Extra_7",
+    "id": "Id_29",
+    "htmlLink": "HTMLLink_29",
+    "description": "ref: Ref_18\n",
+    "end": {
+      "date": "2021-10-08"
+    },
+    "start": {
+      "date": "2021-10-05"
+    }
+  },
+  {
+    "summary": "Company_0 - Training_3 - cv - Extra_1",
+    "id": "Id_30",
+    "htmlLink": "HTMLLink_30",
+    "end": {
+      "date": "2021-11-27"
+    },
+    "start": {
+      "date": "2021-11-24"
+    }
+  },
+  {
+    "summary": "Company_3 - Training_0 - 1 inscrit - Extra_1",
+    "id": "Id_31",
+    "htmlLink": "HTMLLink_31",
+    "end": {
+      "date": "2021-11-09"
+    },
+    "start": {
+      "date": "2021-11-08"
+    }
+  },
+  {
+    "summary": "-> Company_0 - Training_2 - cv - Extra_3",
+    "id": "Id_32",
+    "htmlLink": "HTMLLink_32",
+    "end": {
+      "date": "2021-05-22"
+    },
+    "start": {
+      "date": "2021-05-19"
+    }
+  }
+]
