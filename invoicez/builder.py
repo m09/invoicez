@@ -8,7 +8,7 @@ from pathlib import Path
 from shutil import copyfile, move
 from subprocess import CompletedProcess, run
 from tempfile import NamedTemporaryFile
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -55,7 +55,8 @@ class Builder:
         self._write_latex(latex_path)
 
         completed_process = self._compile(
-            latex_path=latex_path.relative_to(build_dir), build_dir=build_dir,
+            latex_path=latex_path.relative_to(build_dir),
+            build_dir=build_dir,
         )
         if copy_result and completed_process.returncode == 0:
             self._paths.pdf_dir.mkdir(parents=True, exist_ok=True)
@@ -111,6 +112,7 @@ class Builder:
             )
             self.__env.filters["camelcase"] = _to_camel_case
             self.__env.filters["path_join"] = lambda paths: path_join(*paths)
+            self.__env.filters["display_number"] = _to_int_or_float
         return self.__env
 
     @staticmethod
@@ -151,3 +153,7 @@ class Builder:
 
 def _to_camel_case(string: str) -> str:
     return "".join(substring.capitalize() or "_" for substring in string.split("_"))
+
+
+def _to_int_or_float(number: Union[int, float]) -> str:
+    return f"{number:.2f}".rstrip("0").rstrip(".")
