@@ -60,9 +60,16 @@ rates:
     trainings:
       t1:
         training_day: 750
-        preparation_day: 400
+        preparation_day: 500
       t2:
         training_day: 900
+        preparation_day: 500
+    places:
+      default: 0
+  company2:
+    trainings:
+      default:
+        training_day: 800
         preparation_day: 400
     places:
       default: 0
@@ -75,8 +82,11 @@ trainings:
     company: company1
     rates: t2
     name: Training 2
+  training21:
+    company: company2
+    name: Training 1
 strings:
-  invoice_training_day: "Day of “{training.name}” training"
-  invoice_half_training_day: "Half-day of “{training.name}” training"
-  invoice_description: "Invoice for the “{training.name}” training session"
-  invoice_description: "Invoice for the “{training.name}” training session"
+  invoice:
+    training_day: "Day of “{training.name}” training"
+    half_training_day: "Half-day of “{training.name}” training"
+    description: "Invoice for the “{training.name}” training session"

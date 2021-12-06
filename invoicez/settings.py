@@ -1,5 +1,5 @@
 from logging import getLogger
-from typing import Dict
+from typing import Dict, Optional
 
 from pydantic import BaseModel, Extra
 from yaml import safe_load as yaml_safe_load
@@ -29,15 +29,22 @@ class Company(BaseModel):
 
 
 class Training(BaseModel):
-    rates: str
+    rates: Optional[str]
     name: str
     company: str
 
 
-class FormatStrings(BaseModel):
-    invoice_training_day: str
-    invoice_half_training_day: str
-    invoice_description: str
+class InvoiceStrings(BaseModel):
+    class Config:
+        extra = Extra.allow
+
+    training_day: str
+    half_training_day: str
+    description: str
+
+
+class Strings(BaseModel):
+    invoice: InvoiceStrings
 
 
 class Settings(BaseModel):
@@ -48,7 +55,7 @@ class Settings(BaseModel):
     companies: Dict[str, Company]
     trainings: Dict[str, Training]
     rates: Dict[str, Rates]
-    strings: FormatStrings
+    strings: Strings
 
     @classmethod
     def load(cls, paths: Paths) -> "Settings":
@@ -62,8 +69,18 @@ class Settings(BaseModel):
     def get_training_rates(self, company: str, rates: str) -> TrainingRates:
         if company not in self.rates:
             raise InvoicezException(f"Couldn't find {company} in settings > rates")
-        if rates not in self.rates[company].trainings:
+        training_rates = self.rates[company].trainings
+        if rates is None:
+            if "default" not in training_rates:
+                raise InvoicezException(
+                    f"No rates are used for at least one training of company {company}"
+                    f", but no default rates were provided in "
+                    f"settings.yml > rates > {company} > trainings > default"
+                )
+            return training_rates["default"]
+        if rates not in training_rates:
             raise InvoicezException(
-                f"Couldn't find {rates} in settings.yml > rates > {company} > trainings"
+                f"Could not find rates {rates} in "
+                f"settings.yml > rates > {company} > trainings > default"
             )
-        return self.rates[company].trainings[rates]
+        return training_rates[rates]

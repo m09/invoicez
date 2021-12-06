@@ -31,7 +31,7 @@ class Biller:
 
         invoice_number = self._get_next_invoice_number()
         training = self._settings.get_training(merged_event.training)
-        description = self._settings.strings.invoice_description.format(
+        description = self._settings.strings.invoice.description.format(
             training=training
         )
         company = merged_event.company
@@ -85,7 +85,7 @@ class Biller:
                 Item(
                     dates=whole_days,
                     n=len(whole_days),
-                    description=self._settings.strings.invoice_training_day.format(
+                    description=self._settings.strings.invoice.training_day.format(
                         training=training
                     ),
                     unit_price=rates.training_day,
@@ -96,7 +96,7 @@ class Biller:
                 Item(
                     dates=half_days,
                     n=len(half_days),
-                    description=self._settings.strings.invoice_half_training_day.format(
+                    description=self._settings.strings.invoice.half_training_day.format(
                         training=training
                     ),
                     unit_price=rates.training_day // 2,
@@ -106,7 +106,7 @@ class Biller:
 
     def _get_next_invoice_number(self) -> str:
         now = date.today()
-        prefix = now.strftime("%Y")
+        prefix = now.strftime("%Y-%m")
         n_invoices = 1
         for item in self._paths.git_dir.glob("**/*.yml"):
             with item.open(encoding="utf8") as fh:
