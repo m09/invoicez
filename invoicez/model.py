@@ -1,12 +1,16 @@
 from datetime import date, datetime, timedelta
+from enum import Enum
+from io import StringIO
 from pathlib import Path
 from re import VERBOSE as re_VERBOSE
 from re import Pattern
 from re import compile as re_compile
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, Iterator, List, Optional, Tuple, Union
 
-from pydantic import BaseModel, ConstrainedStr
-from yaml import safe_load
+from pydantic import BaseModel, ConstrainedStr, root_validator, validator
+from rich.console import Console, ConsoleOptions, RenderResult
+from rich.panel import Panel
+from yaml import safe_dump, safe_load
 
 from invoicez.exceptions import InvoicezException
 
@@ -120,28 +124,103 @@ class MergedEvent(BaseModel):
     starts: List[Union[date, datetime]]
     durations: List[timedelta]
 
+    def __rich_console__(
+        self, console: Console, options: ConsoleOptions
+    ) -> RenderResult:
+        panel = Panel(
+            self.description or "Pas de détail",
+            title=f"[bold][blue]{self.company}[/] ⋅ [red]{self.training}[/][/]",
+        )
+        yield panel
+
+
+class DurationUnit(str, Enum):
+    day = "day"
+    half_day = "half-day"
+    hour = "hour"
+
+
+class Date(BaseModel):
+    start: List[date]
+    duration: Optional[List[Union[int, float]]]
+    duration_unit: DurationUnit = DurationUnit.day
+
+    class Config:
+        use_enum_values = True
+
+    @validator("start", "duration", pre=True)
+    def transform_str_to_list_singleton(cls, v: Union[str, List[str]]) -> List[str]:
+        return v if isinstance(v, list) else [v]
+
+    @validator("duration")
+    def check_start_and_duration_match(
+        cls,
+        v: List[Union[int, float]],
+        values: Dict[str, Any],
+    ) -> List[Union[int, float]]:
+        if "start" in values and len(v) != len(values["start"]):
+            raise ValueError("duration and start lists must be of equal length")
+        return v
+
 
 class Item(BaseModel):
-    dates: List[date]
+    date: Optional[Date]
     description: str
     n: int
     unit_price: int
 
+    @validator("date", pre=True)
+    def transform_date_to_dict(cls, v: Union[str, Dict[str, Any]]) -> Dict[str, Any]:
+        return v if isinstance(v, dict) else dict(start=v)
+
+    @root_validator(pre=True)
+    def fill_duration_with_n_if_necessary(
+        cls, values: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        if "date" in values:
+            d = values["date"]
+            if d is not None and isinstance(d, dict) and d.get("duration") is None:
+                values["date"]["duration"] = values["n"]
+        return values
+
+
+class GcalInfo(BaseModel):
+    link: str
+    event_id: str
+
 
 class Invoice(BaseModel):
+    path: Path
     invoice_number: str
     description: str
     company: str
     ref: str
     date: date
-    link: str
-    event_id: str
+    gcal_info: Optional[GcalInfo]
     items: List[Item]
 
     @classmethod
-    def all_from_ymls_dir(cls, ymls_dir: Path) -> List["Invoice"]:
-        invoices = []
-        for path in ymls_dir.glob("*.yml"):
-            print(path)
-            invoices.append(cls.parse_obj(safe_load(path.read_text(encoding="utf8"))))
-        return invoices
+    def all_from_ymls_dir(cls, ymls_dir: Path) -> Iterator["Invoice"]:
+        for path in sorted(ymls_dir.glob("*.yml")):
+            data = safe_load(path.read_text(encoding="utf8"))
+            data["path"] = path
+            yield cls.parse_obj(data)
+
+    def dct(self) -> Dict[str, Any]:
+        return self.dict(
+            exclude={"path"},
+            exclude_unset=True,
+            exclude_none=True,
+            exclude_defaults=True,
+        )
+
+    def yml(self) -> str:
+        with StringIO() as string_io:
+            safe_dump(
+                self.dct(), string_io, allow_unicode=True, default_flow_style=False
+            )
+            return string_io.getvalue()
+
+    def write(self) -> None:
+        with self.path.open(mode="w", encoding="utf8") as fh:
+            fh.write(self.yml())

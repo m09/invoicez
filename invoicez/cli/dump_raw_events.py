@@ -7,11 +7,11 @@ from typing import DefaultDict, Dict
 from rich.logging import RichHandler
 from yaml import safe_dump, safe_load
 
+from invoicez.calendar import GoogleCalendar
 from invoicez.cli import app
 from invoicez.model import Event
 from invoicez.paths import Paths
 from invoicez.settings import Settings
-from invoicez.syncing import GoogleCalendarSyncer
 
 
 @app.command()
@@ -25,8 +25,8 @@ def dump_raw_events(output: Path, for_tests: bool = True) -> None:
     paths = Paths(Path("."))
 
     settings = Settings.load(paths)
-    syncer = GoogleCalendarSyncer(paths, settings)
-    raw_events = syncer.list_raw_events()
+    calendar = GoogleCalendar(paths, settings)
+    raw_events = calendar.list_raw_events()
 
     if for_tests:
         title_pattern = Event.compile_pattern(settings.title_pattern)

@@ -1,3 +1,4 @@
+from datetime import date
 from logging import getLogger
 from typing import Dict, Optional
 
@@ -51,6 +52,8 @@ class Settings(BaseModel):
     class Config:
         extra = Extra.allow
 
+    start_date: date = date.min
+    invoice_name_format_string: str
     title_pattern: str
     companies: Dict[str, Company]
     trainings: Dict[str, Training]

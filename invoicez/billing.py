@@ -2,7 +2,7 @@ from datetime import date, timedelta
 from logging import getLogger
 from typing import List
 
-from typer import prompt
+from rich.prompt import Prompt
 from yaml import safe_load
 
 from invoicez.exceptions import InvoicezException
@@ -38,16 +38,27 @@ class Biller:
         if "ref" in extra:
             ref = extra["ref"]
         else:
-            ref = prompt("What reference should we mention on the invoice?")
+            ref = Prompt.ask(
+                "Enter the reference that we should mention on the invoice"
+            )
         items = self._produce_main_items(merged_event)
+        path = (
+            self._paths.gcal_ymls_dir
+            / self._settings.invoice_name_format_string.format(
+                invoice_number=invoice_number,
+                company=company,
+                ref=ref,
+                training=training,
+            )
+        ).with_suffix(".yml")
         return Invoice(
+            path=path,
             invoice_number=invoice_number,
             description=description,
             company=company,
             ref=ref,
             date=date.today(),
-            link=merged_event.link,
-            event_id=merged_event.id,
+            gcal_info=dict(link=merged_event.link, event_id=merged_event.id),
             items=items,
         )
 
@@ -83,7 +94,7 @@ class Biller:
         if whole_days:
             items.append(
                 Item(
-                    dates=whole_days,
+                    date=whole_days,
                     n=len(whole_days),
                     description=self._settings.strings.invoice.training_day.format(
                         training=training
@@ -94,7 +105,7 @@ class Biller:
         if half_days:
             items.append(
                 Item(
-                    dates=half_days,
+                    date=half_days,
                     n=len(half_days),
                     description=self._settings.strings.invoice.half_training_day.format(
                         training=training

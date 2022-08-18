@@ -17,7 +17,7 @@ from invoicez.paths import Paths
 from invoicez.settings import Settings
 
 
-class Syncer:
+class Calendar:
     def __init__(self, paths: Paths):
         self._paths = paths
 
@@ -42,7 +42,7 @@ class Syncer:
         )
 
 
-class GoogleCalendarSyncer(Syncer):
+class GoogleCalendar(Calendar):
     def __init__(self, paths: Paths, settings: Settings):
         super().__init__(paths)
         self._logger = getLogger(__name__)

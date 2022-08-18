@@ -6,10 +6,10 @@ from typing import Any, List
 from git import Repo
 from pytest import fixture
 
+from invoicez.calendar import Calendar
 from invoicez.model import Event
 from invoicez.paths import Paths
 from invoicez.settings import Settings
-from invoicez.syncing import Syncer
 
 
 @fixture
@@ -26,7 +26,7 @@ def working_dir(assets_dir: Path, tmp_path: Path, monkeypatch: Any) -> None:
     monkeypatch.chdir(working_dir)
 
 
-class FakeSyncer(Syncer):
+class FakeCalendar(Calendar):
     def __init__(self, paths: Paths, settings: Settings, events_json: Path):
         self.events_json = events_json
         self.title_pattern = Event.compile_pattern(settings.title_pattern)
@@ -43,7 +43,7 @@ class FakeSyncer(Syncer):
 
 
 @fixture
-def syncer(assets_dir: Path) -> FakeSyncer:
+def calendar(assets_dir: Path) -> FakeCalendar:
     paths = Paths(Path.cwd())
     settings = Settings.load(paths)
-    return FakeSyncer(paths, settings, assets_dir / "events.json")
+    return FakeCalendar(paths, settings, assets_dir / "events.json")

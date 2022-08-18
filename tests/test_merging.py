@@ -9,7 +9,7 @@ from invoicez.model import Event
 from invoicez.paths import Paths
 from invoicez.settings import Settings
 
-from .conftest import FakeSyncer
+from .conftest import FakeCalendar
 
 
 def make_event(
@@ -90,8 +90,8 @@ def test_several_follow_up_events(merger: Merger) -> None:
     assert merged_event.link == root_event.link
 
 
-def test_from_sync(merger: Merger, syncer: FakeSyncer) -> None:
-    events = syncer.list_events()
+def test_from_sync(merger: Merger, calendar: FakeCalendar) -> None:
+    events = calendar.list_events()
 
     merged_events = merger.merge_events(events)
 
