@@ -6,7 +6,6 @@ from yaml import safe_load as yaml_safe_load
 from invoicez.exceptions import InvoicezException
 from invoicez.paths import Paths
 
-
 _logger = getLogger(__name__)
 
 
@@ -19,7 +18,7 @@ class Target:
         self.name = path.with_suffix("").name
         self.path = path
         self.template_name = template_name
-        self.template_path = paths.jinja2_dir / template_name
+        self.template_path = paths.templates_dir / template_name
         if not self.template_path.name.endswith(".tex"):
             self.template_path = self.template_path.with_suffix(".tex")
         if not self.template_path.is_file():

@@ -8,19 +8,20 @@ from pathlib import Path
 from shutil import copyfile, move
 from subprocess import CompletedProcess, run
 from tempfile import NamedTemporaryFile
-from typing import Any, Dict, Optional, Union
+from typing import Optional, Union
 
 from jinja2 import Environment, FileSystemLoader
 
 from invoicez.exceptions import InvoicezException
 from invoicez.paths import Paths
+from invoicez.settings import Settings
 from invoicez.target import Target
 
 
 class Builder:
-    def __init__(self, target: Target, config: Dict[str, Any], paths: Paths):
+    def __init__(self, target: Target, settings: Settings, paths: Paths):
         self._target = target
-        self._config = config
+        self._settings = settings
         self._paths = paths
         self._logger = getLogger(__name__)
         self._track_build()
@@ -50,7 +51,7 @@ class Builder:
         filename = self._get_filename()
         latex_path = build_dir / f"{filename}.tex"
         build_pdf_path = latex_path.with_suffix(".pdf")
-        output_pdf_path = self._paths.pdf_dir / f"{filename}.pdf"
+        output_pdf_path = self._paths.pdfs_dir / f"{filename}.pdf"
 
         self._write_latex(latex_path)
 
@@ -59,7 +60,7 @@ class Builder:
             build_dir=build_dir,
         )
         if copy_result and completed_process.returncode == 0:
-            self._paths.pdf_dir.mkdir(parents=True, exist_ok=True)
+            self._paths.pdfs_dir.mkdir(parents=True, exist_ok=True)
             copyfile(build_pdf_path, output_pdf_path)
         return completed_process
 
@@ -68,19 +69,17 @@ class Builder:
             self._paths.build_dir / self._target.name / self._target.template_name
         )
         target_build_dir.mkdir(parents=True, exist_ok=True)
-        if self._paths.assets_dir.is_dir():
-            for item in self._paths.assets_dir.iterdir():
-                self._setup_link(target_build_dir / item.name, item)
         return target_build_dir
 
     def _write_latex(self, output_path: Path) -> None:
         template = self._env.get_template(str(self._target.template_path.name))
         context = deepcopy(self._target.data)
-        for k, v in ((k, v) for k, v in self._config.items() if k != "companies"):
+        for k, v in (
+            (k, v) for k, v in self._settings.dict().items() if k != "companies"
+        ):
             context[k] = v
         context["company"] = {
-            **self._config["company"],
-            **self._config["companies"][self._target.data["company"]],
+            **self._settings.companies[self._target.data["company"]].dict(),
         }
         try:
             with NamedTemporaryFile("w", encoding="utf8", delete=False) as fh:
@@ -98,7 +97,7 @@ class Builder:
     def _env(self) -> Environment:
         if not hasattr(self, "__env"):
             self.__env = Environment(
-                loader=FileSystemLoader(searchpath=self._paths.jinja2_dir),
+                loader=FileSystemLoader(searchpath=self._paths.templates_dir),
                 block_start_string=r"\BLOCK{",
                 block_end_string="}",
                 variable_start_string=r"\V{",
