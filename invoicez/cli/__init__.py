@@ -1,22 +1,19 @@
 from functools import partial, wraps
-from importlib import import_module, invalidate_caches as importlib_invalidate_caches
+from importlib import import_module
+from importlib import invalidate_caches as importlib_invalidate_caches
 from logging import INFO
 from pathlib import Path
 from pkgutil import walk_packages
 from typing import Any, Callable, List
 
-from click import (
-    argument,
-    ClickException,
-    group,
-    option as click_option,
-    Path as ClickPath,
-)
+from click import ClickException
+from click import Path as ClickPath
+from click import argument, group
+from click import option as click_option
 from coloredlogs import install as coloredlogs_install
 
 from invoicez.exceptions import InvoicezException
 from invoicez.paths import Paths
-
 
 option = partial(click_option, show_default=True)
 
@@ -43,14 +40,16 @@ def _autocomplete_path(ctx: Any, args: List[str], incomplete: str) -> List[str]:
 path_argument = argument(
     "path",
     type=ClickPath(exists=True, dir_okay=False, readable=True),
-    autocompletion=_autocomplete_path,  # type: ignore
+    shell_complete=_autocomplete_path,
 )
 
 
 @group(chain=True)
 def cli() -> None:
     coloredlogs_install(
-        level=INFO, fmt="%(asctime)s %(name)s %(message)s", datefmt="%H:%M:%S",
+        level=INFO,
+        fmt="%(asctime)s %(name)s %(message)s",
+        datefmt="%H:%M:%S",
     )
 
 
@@ -77,7 +76,7 @@ def _import_module_and_submodules(package_name: str) -> None:
     path_string = "" if not path else path[0]
 
     for module_finder, name, _ in walk_packages(path):
-        if path_string and module_finder.path != path_string:
+        if path_string and module_finder.path != path_string:  # type: ignore
             continue
         subpackage = f"{package_name}.{name}"
         _import_module_and_submodules(subpackage)

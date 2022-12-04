@@ -1,6 +1,6 @@
+import sys
 from pathlib import Path
 from shutil import copytree
-import sys
 from typing import Any, List
 
 import appdirs

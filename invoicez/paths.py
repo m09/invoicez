@@ -7,7 +7,6 @@ from git.exc import InvalidGitRepositoryError
 
 from invoicez.exceptions import InvoicezException
 
-
 _logger = getLogger(__name__)
 
 

@@ -6,7 +6,6 @@ from yaml import safe_load as yaml_safe_load
 from invoicez.exceptions import InvoicezException
 from invoicez.paths import Paths
 
-
 _logger = getLogger(__name__)
 
 

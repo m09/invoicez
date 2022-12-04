@@ -3,12 +3,12 @@ from logging import getLogger
 from pathlib import Path
 
 from click import argument
-from yaml import safe_dump as yaml_safe_dump, safe_load as yaml_safe_load
+from yaml import safe_dump as yaml_safe_dump
+from yaml import safe_load as yaml_safe_load
 
 from invoicez.cli import command, dir_path_option, path_argument
 from invoicez.config import get_config
 from invoicez.paths import Paths
-
 
 _logger = getLogger(__name__)
 

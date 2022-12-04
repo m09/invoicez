@@ -23,7 +23,7 @@ def _autocomplete_template(ctx: Any, args: List[str], incomplete: str) -> List[s
     "--template",
     type=str,
     default="main",
-    autocompletion=_autocomplete_template,  # type: ignore
+    shell_complete=_autocomplete_template,
 )
 @dir_path_option
 def run(path: str, template: str, dir_path: str) -> None:
