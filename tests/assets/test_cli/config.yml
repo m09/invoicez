@@ -1,5 +1,11 @@
-font_size: 11pt
-invoice_name_format_string: Facture-{invoice_number}-{company}-{ref}
+latex_build_command:
+  - latexmk
+  - -pdflatex=xelatex -shell-escape -halt-on-error %O %S
+  - -interaction=nonstopmode
+  - -dvi-
+  - -ps-
+  - -pdf
+invoice_name_format_string: Facture-{invoice_number}-{company.name}-{ref}
 title_pattern: |
   ^
   \s*
@@ -23,8 +29,9 @@ title_pattern: |
   )?
   \s*
   $
-company:
-  maximum_days: 30
+
+# Extra values, transmitted as is to LaTeX
+font_size: 11pt
 tva: 0.2
 user:
   name: John Doe
@@ -42,51 +49,3 @@ user:
   rib: XXXXX~XXXXX~XXXXXXXXXXX~XX
   account_bank: SOME BANK / SOME OFFICE
   account_owner: JOHN DOE / 221B BAKER STREET / LONDON
-companies:
-  company1:
-    name: Company 1
-    siren: 666 666 666
-    address: |
-      Some street
-      Some town
-  company2:
-    name: Company 2
-    siren: 999 999 999
-    address: |
-      Another street
-      Another town
-rates:
-  company1:
-    trainings:
-      t1:
-        training_day: 750
-        preparation_day: 500
-      t2:
-        training_day: 900
-        preparation_day: 500
-    places:
-      default: 0
-  company2:
-    trainings:
-      default:
-        training_day: 800
-        preparation_day: 400
-    places:
-      default: 0
-trainings:
-  training11:
-    company: company1
-    rates: t1
-    name: Training 1
-  training12:
-    company: company1
-    rates: t2
-    name: Training 2
-  training21:
-    company: company2
-    name: Training 1
-strings:
-  invoice:
-    training_day: "Day of “{training.name}” training"
-    half_training_day: "Half-day of “{training.name}” training"
-    description: "Invoice for the “{training.name}” training session"

@@ -1,5 +1,5 @@
 [flake8]
-ignore = W503, D
+ignore = E704, W503, D
 max-line-length = 88
 exclude =
     __pycache__,

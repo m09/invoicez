@@ -3,11 +3,12 @@ from pathlib import Path
 
 from pytest import fixture, raises
 
+from invoicez.config.paths import Paths
+from invoicez.config.settings import Settings
 from invoicez.exceptions import InvoicezException
-from invoicez.merging import Merger
-from invoicez.model import Event
-from invoicez.paths import Paths
-from invoicez.settings import Settings
+from invoicez.model.duration import Duration, DurationUnit
+from invoicez.model.event import Event
+from invoicez.scheduling.merging import Merger
 
 from .conftest import FakeCalendar
 
@@ -29,8 +30,8 @@ def make_event(
         extra=f"extra_{extra}",
         link=f"link_{start_offset}",
         id=f"id_{start_offset}",
-        start=datetime.now().date() + timedelta(days=start_offset),
-        duration=timedelta(days=duration),
+        start=datetime.now() + timedelta(days=start_offset),
+        duration=Duration(n=1, unit=DurationUnit.day),
     )
 
 

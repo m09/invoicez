@@ -1,0 +1,12 @@
+company1:
+  name: Company 1
+  siren: 666 666 666
+  address: |
+    Some street
+    Some town
+company2:
+  name: Company 2
+  siren: 999 999 999
+  address: |
+    Another street
+    Another town

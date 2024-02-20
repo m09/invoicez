@@ -6,10 +6,7 @@ from pkgutil import walk_packages
 from rich.logging import RichHandler
 from typer import Typer
 
-app = Typer(
-    help="Invoices management tool.",
-    chain=True,
-)
+app = Typer(help="Invoices management tool.")
 
 
 def main() -> None:
@@ -37,7 +34,7 @@ def _import_module_and_submodules(package_name: str) -> None:
         if (
             path_string
             and hasattr(module_finder, "path")
-            and module_finder.path != path_string  # type: ignore
+            and module_finder.path != path_string
         ):
             continue
         subpackage = f"{package_name}.{name}"

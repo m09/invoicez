@@ -2,26 +2,27 @@ from pathlib import Path
 
 from rich.console import Console
 
-from invoicez.calendar import GoogleCalendar
-from invoicez.cli import app
-from invoicez.mapping import Mapper
-from invoicez.merging import Merger
-from invoicez.paths import Paths
-from invoicez.settings import Settings
+from ..calendar import GoogleCalendar  # type: ignore
+from ..cli import app
+from ..compiling.billing import Biller
+from ..config.logging import setup_logging
+from ..config.paths import Paths
+from ..config.settings import Settings
+from ..directing import Director
+from ..scheduling.mapping import Mapper
+from ..scheduling.merging import Merger
 
 
-@app.command()
+@app.callback(invoke_without_command=True)
 def main() -> None:
+    setup_logging()
     paths = Paths(Path("."))
     settings = Settings.load(paths)
-
     console = Console()
 
-    syncer = GoogleCalendar(paths, settings)
-    events = syncer.list_events()
-
-    merger = Merger(paths, settings)
-    merged_events = merger.merge_events(events)
-
-    mapper = Mapper(paths, settings)
-    mapper.map(merged_events, console)
+    Director(
+        calendar=GoogleCalendar(paths, settings, console),
+        merger=Merger(paths, settings),
+        mapper=Mapper(paths, settings),
+        biller=Biller(paths, settings),
+    ).direct()

@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from invoicez.building import Builder
-from invoicez.paths import Paths
-from invoicez.settings import Settings
-from invoicez.target import Target
+from ..config.paths import Paths
+from ..config.settings import Settings
+from .building import Builder
+from .target import Target
 
 
 def run(path: Path, template: str, paths: Paths) -> None:

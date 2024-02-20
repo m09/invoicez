@@ -1,15 +1,25 @@
 from json import load
 from pathlib import Path
 from shutil import copytree
-from typing import Any, List
+from typing import Any, Dict, List
 
 from git import Repo
 from pytest import fixture
 
-from invoicez.calendar import Calendar
-from invoicez.model import Event
-from invoicez.paths import Paths
-from invoicez.settings import Settings
+from invoicez.config.paths import Paths
+from invoicez.config.settings import Settings
+from invoicez.model.event import Event
+from invoicez.scheduling.calendar import Calendar
+
+
+@fixture
+def paths() -> Paths:
+    return Paths(Path.cwd())
+
+
+@fixture
+def settings(paths: Paths) -> Settings:
+    return Settings.load(paths)
 
 
 @fixture
@@ -41,9 +51,16 @@ class FakeCalendar(Calendar):
                 events.append(event)
         return sorted(events, key=lambda e: e.start)
 
+    def list_raw_events(self) -> List[Dict[str, Any]]:
+        return []
+
+    def edit_event_description(self, event_id: str, new_description: str) -> None:
+        pass
+
+    def select_calendar(self) -> None:
+        pass
+
 
 @fixture
-def calendar(assets_dir: Path) -> FakeCalendar:
-    paths = Paths(Path.cwd())
-    settings = Settings.load(paths)
+def calendar(assets_dir: Path, paths: Paths, settings: Settings) -> FakeCalendar:
     return FakeCalendar(paths, settings, assets_dir / "events.json")

@@ -3,8 +3,8 @@ from pathlib import Path
 
 from yaml import safe_dump, safe_load
 
-from invoicez.cli import app
-from invoicez.paths import Paths
+from ..cli import app
+from ..config.paths import Paths
 
 
 @app.command()

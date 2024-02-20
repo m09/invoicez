@@ -1,9 +1,10 @@
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import Iterable
 
-from invoicez.exceptions import InvoicezException
-from invoicez.model import Event, MergedEvent
-from invoicez.paths import Paths
-from invoicez.settings import Settings
+from ..config.paths import Paths
+from ..config.settings import Settings
+from ..exceptions import InvoicezException
+from ..model.event import Event
+from ..model.merged_event import MergedEvent
 
 
 class Merger:
@@ -11,8 +12,8 @@ class Merger:
         self._paths = paths
         self._title_pattern = Event.compile_pattern(settings.title_pattern)
 
-    def merge_events(self, events: Iterable[Event]) -> List[MergedEvent]:
-        current_events: Dict[Tuple[str, str, str, Optional[str]], MergedEvent] = {}
+    def merge_events(self, events: Iterable[Event]) -> list[MergedEvent]:
+        current_events: dict[tuple[str, str, str, str | None], MergedEvent] = {}
         multipart_events = []
         for event in events:
             key = (event.company, event.training, event.place, event.extra)

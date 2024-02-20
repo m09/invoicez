@@ -1,31 +1,25 @@
 from collections import defaultdict
 from json import dump
-from logging import INFO, basicConfig
 from pathlib import Path
-from typing import DefaultDict, Dict
 
-from rich.logging import RichHandler
+from rich.console import Console
 from yaml import safe_dump, safe_load
 
-from invoicez.calendar import GoogleCalendar
-from invoicez.cli import app
-from invoicez.model import Event
-from invoicez.paths import Paths
-from invoicez.settings import Settings
+from ..cli import app
+from ..config.logging import setup_logging
+from ..config.paths import Paths
+from ..config.settings import Settings
+from ..model.event import Event
+from ..scheduling.calendar import GoogleCalendar
 
 
 @app.command()
 def dump_raw_events(output: Path, for_tests: bool = True) -> None:
-    basicConfig(
-        level=INFO,
-        format="%(message)s",
-        datefmt="%H:%M:%S",
-        handlers=[RichHandler(rich_tracebacks=True)],
-    )
+    setup_logging()
     paths = Paths(Path("."))
 
     settings = Settings.load(paths)
-    calendar = GoogleCalendar(paths, settings)
+    calendar = GoogleCalendar(paths, settings, Console())
     raw_events = calendar.list_raw_events()
 
     if for_tests:
@@ -33,12 +27,12 @@ def dump_raw_events(output: Path, for_tests: bool = True) -> None:
 
         fields_to_keep = {"start", "end"}
 
-        companies: Dict[str, str] = {}
-        trainings: DefaultDict[str, Dict[str, str]] = defaultdict(dict)
-        extras: Dict[str, str] = {}
-        ids: Dict[str, str] = {}
-        html_links: Dict[str, str] = {}
-        refs: Dict[str, str] = {}
+        companies: dict[str, str] = {}
+        trainings: defaultdict[str, dict[str, str]] = defaultdict(dict)
+        extras: dict[str, str] = {}
+        ids: dict[str, str] = {}
+        html_links: dict[str, str] = {}
+        refs: dict[str, str] = {}
 
         modified_events = []
         for raw_event in raw_events:
@@ -63,9 +57,9 @@ def dump_raw_events(output: Path, for_tests: bool = True) -> None:
             else:
                 new_extra = ""
 
-            event[
-                "summary"
-            ] = f"{continuation}{new_company} - {new_training} - {new_place}{new_extra}"
+            event["summary"] = (
+                f"{continuation}{new_company} - {new_training} - {new_place}{new_extra}"
+            )
             event["id"] = ids.setdefault(raw_event["id"], f"Id_{len(ids)}")
             event["htmlLink"] = html_links.setdefault(
                 raw_event["htmlLink"], f"HTMLLink_{len(html_links)}"
